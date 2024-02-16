@@ -1,8 +1,7 @@
-import sys, os
+import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QHBoxLayout
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-
 
 class ImageLabel(QLabel):
     def __init__(self, text):
@@ -18,8 +17,6 @@ class ImageLabel(QLabel):
 
     def setPixmap(self, image):
         super().setPixmap(image)
-
-
 class App(QWidget):
     def __init__(self):
         super().__init__()
@@ -52,6 +49,7 @@ class App(QWidget):
             event.setDropAction(Qt.CopyAction)
             file_path = event.mimeData().urls()[0].toLocalFile()
             self.set_input_image(file_path)
+            self.set_output_image(file_path)
 
             event.accept()
         else:
@@ -61,6 +59,13 @@ class App(QWidget):
         pixmap = QPixmap(file_path)
         pixmap = pixmap.scaled(self.photoViewer.size())
         self.photoViewer.setPixmap(pixmap)
+
+    # TODO image -> model -> output -> gui
+    def set_output_image(self, file_path):
+        pass
+        # pixmap = QPixmap(file_path)
+        # pixmap = pixmap.scaled(self.photoViewer.size())
+        # self.resultViewer.setPixmap(pixmap)
 
 app = QApplication(sys.argv)
 feat = App()
